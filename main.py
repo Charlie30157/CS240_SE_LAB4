@@ -28,20 +28,31 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-            # Add key handling when game is over
-            if engine.game_over:
+            # Handle BEST-OF SELECTION state (Task 3)
+            if engine.selecting_best_of:
+                engine.handle_best_of_selection_input(event)
+
+            # Handle GAME OVER state
+            elif engine.game_over:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
                         running = False
-                    if event.key == pygame.K_r:
-                        engine.__init__(WIDTH, HEIGHT)  # Reset the game engine
+                    elif event.key == pygame.K_r:
+                        engine.reset_game()
 
-        if not engine.game_over:
+        # Only play the game if not selecting best-of and not game over
+        if not engine.selecting_best_of and not engine.game_over:
             engine.handle_input()
             engine.update()
             engine.render(SCREEN)
         else:
-            engine.render_game_over(SCREEN)
+            # Still draw the paddles, ball, score for consistent visuals
+            engine.render(SCREEN)
+            # Show prompt overlays for special states
+            if engine.selecting_best_of:
+                engine.render_best_of_selection(SCREEN)
+            elif engine.game_over:
+                engine.render_game_over(SCREEN)
 
         pygame.display.flip()
         clock.tick(FPS)
