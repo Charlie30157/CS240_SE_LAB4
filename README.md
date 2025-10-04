@@ -104,3 +104,47 @@ pygame-pingpong/
 - [] Dependencies listed in `requirements.txt`
 - [] README is followed during setup and testing
 - [] Codebase is clean, modular, and understandable
+
+
+# Ping Pong Game (Pygame Edition)
+
+This is an enhanced implementation of the classic Ping Pong (Pong) game using Python and Pygame, featuring multi-game matches, replay options, and audio feedback.
+
+---
+
+## Features
+
+### Task 1: Accurate Ball-Paddle Collision
+- Improved collision detection ensures the ball never passes through paddles at high speed.
+- Robust gameplay at all frame rates.
+
+### Task 2: Game Over Condition
+- A match ends when a player reaches the winning score (default: 5 points).
+- Winner is displayed with an overlay.
+- Option to restart or quit after match end.
+
+### Task 3: Best-of-N Replay Option
+- After each match, choose 'best of 3', '5', or '7' format for rematches.
+- Shows current match series score.
+- Flexible match restarts; user can exit any time.
+
+### Task 4: Sound Feedback
+- Audio effect for paddle hits.
+- Distinct sound for wall bounces.
+- Separate sound for scoring events.
+
+---
+
+## Controls
+
+- **W/S**: Move player paddle up/down
+- **3/5/7**: Select best-of rounds at startup or post-match
+- **R**: Restart match after game over
+- **Q**: Quit the game (at any prompt or screen)
+
+---
+
+## Installation & Execution
+
+1. **Install dependencies (Python >= 3.8):**
+
