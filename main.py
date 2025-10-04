@@ -28,9 +28,20 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        engine.handle_input()
-        engine.update()
-        engine.render(SCREEN)
+            # Add key handling when game is over
+            if engine.game_over:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        running = False
+                    if event.key == pygame.K_r:
+                        engine.__init__(WIDTH, HEIGHT)  # Reset the game engine
+
+        if not engine.game_over:
+            engine.handle_input()
+            engine.update()
+            engine.render(SCREEN)
+        else:
+            engine.render_game_over(SCREEN)
 
         pygame.display.flip()
         clock.tick(FPS)
