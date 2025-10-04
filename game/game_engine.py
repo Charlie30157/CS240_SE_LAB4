@@ -1,4 +1,5 @@
 import pygame
+import os
 from .paddle import Paddle
 from .ball import Ball
 
@@ -31,6 +32,9 @@ class GameEngine:
         self.game_over = False
         self.winner = None
 
+        # Sound: Score feedback
+        self.score_sound = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'score.wav'))
+
     def handle_input(self):
         keys = pygame.key.get_pressed()
         if not self.selecting_best_of and not self.game_over:
@@ -48,6 +52,7 @@ class GameEngine:
 
         if self.ball.x <= 0:
             self.ai_score += 1
+            self.score_sound.play()  # Sound feedback for AI scoring
             self.ball.reset()
             if self.check_game_winner():
                 self.ai_match_wins += 1
@@ -55,6 +60,7 @@ class GameEngine:
 
         elif self.ball.x >= self.width:
             self.player_score += 1
+            self.score_sound.play()  # Sound feedback for player scoring
             self.ball.reset()
             if self.check_game_winner():
                 self.player_match_wins += 1
@@ -124,7 +130,6 @@ class GameEngine:
         hint_font = pygame.font.SysFont("Arial", 30)
         hint_restart = hint_font.render("Press R to Replay or Q to Quit", True, WHITE)
         screen.blit(hint_restart, (self.width // 2 - hint_restart.get_width() // 2, self.height // 2 + 50))
-
 
     def render_best_of_selection(self, screen):
         overlay = pygame.Surface((self.width, self.height))
